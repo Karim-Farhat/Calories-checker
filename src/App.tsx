@@ -10,7 +10,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Camera, RefreshCcw, User, Settings, Globe, ChevronRight, ChevronLeft, Loader2, CheckCircle2, XCircle } from 'lucide-react';
 import { translations, Language, UserProfile, FoodAnalysis } from './translations';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+if (!apiKey) {
+  console.error("API key is missing!");
+}
+
+// Create the AI client instance
+const ai = new GoogleGenAI({ apiKey });
 
 export default function App() {
   const [lang, setLang] = useState<Language>('ar');
